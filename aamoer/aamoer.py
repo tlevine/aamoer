@@ -1,9 +1,15 @@
+from logging import getLogger
 from collections import Counter, defaultdict
+
+logger = getLogger(__name__)
 
 def count(functions:dict, table:iter):
     histograms = defaultdict(lambda: defaultdict(Counter))
     for row in table:
-        for i, value in row:
+        for i, value in enumerate(row):
             for name, function in functions.items():
-                histograms[i][name] = function(value)
+                try:
+                    histograms[i][name][function(value)] += 1
+                except Exception as e:
+                    logger.error(e)
     return [histograms[i] for i in range(max(histograms.keys()) + 1)]
