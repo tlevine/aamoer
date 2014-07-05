@@ -12,4 +12,5 @@ def count(functions:dict, table:iter):
                     histograms[i][name][function(value)] += 1
                 except Exception as e:
                     logger.error(e)
+                    histograms[i][name][None] += 1
     return [histograms[i] for i in range(max(histograms.keys()) + 1)]
