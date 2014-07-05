@@ -1,3 +1,4 @@
+from io import StringIO
 from logging import getLogger
 from collections import Counter, defaultdict
 
@@ -18,6 +19,9 @@ def count(functions:dict, table:iter) -> list:
 def load(table):
     if isinstance(table, str):
         fp = open(table, 'r')
+        result = csv.reader(fp, dialect = _guess_dialect(fp))
+    elif isinstance(table, StringIO):
+        fp = table
         result = csv.reader(fp, dialect = _guess_dialect(fp))
     else:
         result = table
