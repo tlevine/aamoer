@@ -1,7 +1,7 @@
 from collections import Counter
 import nose.tools as n
 
-import aamoer.aamoer as aamoer
+import aamoer.pieces as aamoer
 
 def test_count():
     functions = {

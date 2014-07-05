@@ -3,7 +3,7 @@ from collections import Counter, defaultdict
 
 logger = getLogger(__name__)
 
-def count(functions:dict, table:iter):
+def count(functions:dict, table:iter) -> list:
     histograms = defaultdict(lambda: defaultdict(Counter))
     for row in table:
         for i, value in enumerate(row):
@@ -14,3 +14,21 @@ def count(functions:dict, table:iter):
                     logger.error(e)
                     histograms[i][name][None] += 1
     return [histograms[i] for i in range(max(histograms.keys()) + 1)]
+
+def load(table):
+    if isinstance(table, str):
+        fp = open(table, 'r')
+        result = csv.reader(fp, dialect = _guess_dialect(fp))
+    else:
+        result = table
+    return result
+        
+def _guess_dialect(fp):
+    'Guess the dialect of a CSV file.'
+    pos = fp.tell()
+    try:
+        dialect = csv.Sniffer().sniff(fp.read(1024))
+    except csv.Error:
+        dialect = 'excel' # the default
+    fp.seek(pos)
+    return dialect
