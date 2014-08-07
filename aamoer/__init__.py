@@ -2,7 +2,9 @@ from aamoer.pieces import count, load
 
 def aamoer(functions:dict, table) -> list:
     '''
-    Specify some function and an iterable of iterables
+    Specify some function and a table. The function takes
+    a string as input and effectively returns a string.
+    The table is either a filename or an iterable of iterables
     (like a list of lists), where the inner iterable is
     a row in a data table.
     
