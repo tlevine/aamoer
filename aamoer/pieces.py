@@ -7,6 +7,7 @@ logger = getLogger(__name__)
 
 def count(functions:dict, table:iter) -> list:
     histograms = defaultdict(lambda: defaultdict(Counter))
+    header = next(table)
     for row in table:
         for i, value in enumerate(row):
             for name, function in functions.items():
@@ -15,7 +16,7 @@ def count(functions:dict, table:iter) -> list:
                 except Exception as e:
                     logger.error(e)
                     histograms[i][name][None] += 1
-    return [histograms[i] for i in range(max(histograms.keys()) + 1)]
+    return [(h, histograms[i]) for h, i in zip(header, range(max(histograms.keys()) + 1))]
 
 def load(table):
     if isinstance(table, str):
