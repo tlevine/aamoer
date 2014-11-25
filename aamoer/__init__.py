@@ -17,7 +17,7 @@ def aamoer(functions:dict, table) -> list:
 
 def cli(functions:dict):
     import sys, argparse, csv
-    p = argparse.ArgumentParser(description = 'Find risk-related features in CSV files.')
+    p = argparse.ArgumentParser(description = 'Make column features in CSV files.')
     p.add_argument('csv', metavar = '[csv file]', nargs = '+', help = 'csv files to look at')
     if p.parse_args().csv == ['-']:
         csv_files = (line.rstrip('\n') for line in sys.stdin)
